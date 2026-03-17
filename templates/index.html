@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lat Long Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>📍 Lat-Long Extractor</h1>
+
+        <!-- 🔥 Upload section ALWAYS on top -->
+        <form method="POST" enctype="multipart/form-data" class="upload-box">
+            <input type="file" name="image" required>
+            <button type="submit">Upload & Extract</button>
+        </form>
+
+        <!-- 🖼️ Image Preview -->
+        {% if image_data %}
+        <div class="preview">
+            <img src="data:image/jpeg;base64,{{ image_data }}">
+        </div>
+        {% endif %}
+
+        <!-- 📊 Results -->
+        {% if lat %}
+        <div class="result">
+
+            <div class="value-box">
+                <span>Latitude:</span>
+                <input type="text" value="{{ lat }}" id="lat" readonly>
+                <button onclick="copyText('lat')">Copy</button>
+            </div>
+
+            <div class="value-box">
+                <span>Longitude:</span>
+                <input type="text" value="{{ lon }}" id="lon" readonly>
+                <button onclick="copyText('lon')">Copy</button>
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- ❤️ Footer -->
+<div class="footer">
+    Made by Vidhi Rastogi (MQAS)
+</div>
+
+<script>
+function copyText(id) {
+    const input = document.getElementById(id);
+    input.select();
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value);
+    alert("Copied: " + input.value);
+}
+</script>
+
+</body>
+</html>
